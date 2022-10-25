@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Car Page</title>
+</head>
+<body>
+
+<div>
+  <span th:if="${#lists.isEmpty(cars)}">There aren't any cars!</span>
+  <span th:unless="${#lists.isEmpty(cars)}">
+        <table class="table">
+            <tr>
+                <th> Brand </th>
+                <th> Model </th>
+                <th> Cost </th>
+                <th> Year </th>
+                <th> </th>
+            </tr>
+            <tr th:each="car: ${cars}">
+              <td th:text="${car.brand}"> </td>
+              <td th:text="${car.model}"> </td>
+              <td th:text="${car.cost}"> </td>
+              <td th:text="${car.year}"> </td>
+              <td>
+                <form th:action="@{'/cars/delete/'+${car.id}}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+              </td>
+            </tr>
+        </table>
+    </span>
+</div>
+<div>
+  <form th:action="@{'/cars/add'}" method="get">
+    <button type="submit">Add Car</button>
+  </form>
+</div>
+<div>
+    <form th:action="@{'/'}" method="get">
+        <button type="submit">Go to the main page</button>
+    </form>
+</div>
+</body>
+</html>
